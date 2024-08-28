@@ -9,18 +9,38 @@ using System.Threading.Tasks;
 
 namespace RotaSystemApi
 {
+	using System.Runtime.CompilerServices;
+	using Autofac.Extensions.DependencyInjection;
+	using Microsoft.Extensions.DependencyInjection;
+	using Microsoft.Extensions.Logging.Console;
+
 	public class Program
 	{
-		public static void Main(string[] args)
+		public static async Task Main(string[] args)
 		{
-			CreateHostBuilder(args).Build().Run();
-		}
+			try
+			{
+				var host = Host.CreateDefaultBuilder(args)
+					.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+					.ConfigureServices((hostContext, services) =>
+					{
+						var configuration = hostContext.Configuration;
 
-		public static IHostBuilder CreateHostBuilder(string[] args) =>
-			Host.CreateDefaultBuilder(args)
-				.ConfigureWebHostDefaults(webBuilder =>
-				{
-					webBuilder.UseStartup<Startup>();
-				});
+						services.AddOptions();
+					})
+					.ConfigureWebHostDefaults(webBuilder =>
+					{
+						webBuilder.UseStartup<Startup>();
+					})
+					.Build();
+
+				await host.RunAsync();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
+		}
 	}
 }

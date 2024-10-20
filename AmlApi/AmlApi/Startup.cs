@@ -11,7 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AmlApi.DataAccess;
 using AmlApi.IoC;
+using Microsoft.EntityFrameworkCore;
 
 namespace AmlApi
 {
@@ -34,6 +36,10 @@ namespace AmlApi
 		{
 			//services.AddCors();
 			services.AddControllers();
+			
+			services.AddDbContext<AppDbContext>(
+				options => options.UseNpgsql(this.Configuration.GetConnectionString("AmlDb")));
+			
 			services.AddSwaggerGen();
 			services.AddSwaggerGen(c =>
 			{

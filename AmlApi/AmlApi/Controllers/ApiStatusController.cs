@@ -1,19 +1,18 @@
-﻿using AmlApi.Business.Getters;
+﻿using AmlApi.DataAccess;
+using AmlApi.DataAccess.Entities;
 
 namespace AmlApi.Controllers
 {
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using AmlApi.Business.Getters;
 
     [Route("[controller]")]
     public class ApiStatusController : Controller
     {
-        private readonly IGetUser getUser;
+        private readonly IDataContext dataContext;
 
-        public ApiStatusController(IGetUser getUser)
+        public ApiStatusController(IDataContext dataContext)
         {
-            this.getUser = getUser;
+            this.dataContext = dataContext;
         }
 
         /// <summary>
@@ -24,18 +23,21 @@ namespace AmlApi.Controllers
         [HttpGet("Status")]
         public IActionResult Status()
         {
+            // test DB works
+            var user = new User
+            {
+                FirstName = "Hamza",
+                LastName = "Soussi",
+                Address = "3",
+                PostCode = "S",
+                Email = ""
+            };
+            using (var context = this.dataContext.Create())
+            {
+                context.Users.Add(user);
+                context.SaveChangesAsync();
+            }
             return new OkObjectResult("Success");
-        }
-        
-        /// <summary>
-        /// Checks that the API is running
-        /// </summary>
-        /// <returns>Status of API</returns>
-        /// <response code="200">API Running OK</response>
-        [HttpGet("GetUser")]
-        public IActionResult User()
-        {
-            return new OkObjectResult(this.getUser.Get());
         }
     }
 }

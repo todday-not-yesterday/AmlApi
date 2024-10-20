@@ -34,11 +34,7 @@ namespace AmlApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			//services.AddCors();
 			services.AddControllers();
-			
-			services.AddDbContext<AppDbContext>(
-				options => options.UseNpgsql(this.Configuration.GetConnectionString("AmlDb")));
 			
 			services.AddSwaggerGen();
 			services.AddSwaggerGen(c =>
@@ -49,10 +45,6 @@ namespace AmlApi
 					Description = "Advanced Media Library",
 					Version = "v1"
 				});
-				
-				// var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-				// var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-				// c.IncludeXmlComments(xmlPath);
 			});
 		}
 

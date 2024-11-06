@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AmlApi.DataAccess.Entities;
 
+[ExcludeFromCodeCoverage]
 public class User
 {
     [Key] 

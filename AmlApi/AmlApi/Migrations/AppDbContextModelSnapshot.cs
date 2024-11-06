@@ -22,6 +22,37 @@ namespace AmlApi.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("AmlApi.DataAccess.Entities.Branch", b =>
+                {
+                    b.Property<int>("Key")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Key"));
+
+                    b.Property<string>("ClosingTime")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("LocationKey")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("OpeningTime")
+                        .HasColumnType("text");
+
+                    b.HasKey("Key");
+
+                    b.HasIndex("LocationKey");
+
+                    b.ToTable("Branch");
+                });
+
             modelBuilder.Entity("AmlApi.DataAccess.Entities.Inventory", b =>
                 {
                     b.Property<int>("Key")
@@ -30,7 +61,7 @@ namespace AmlApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Key"));
 
-                    b.Property<int>("LocationKey")
+                    b.Property<int>("BranchKey")
                         .HasColumnType("integer");
 
                     b.Property<int>("MediaTypeKey")
@@ -44,7 +75,7 @@ namespace AmlApi.Migrations
 
                     b.HasKey("Key");
 
-                    b.HasIndex("LocationKey");
+                    b.HasIndex("BranchKey");
 
                     b.HasIndex("MediaTypeKey");
 
@@ -59,17 +90,25 @@ namespace AmlApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Key"));
 
-                    b.Property<string>("BranchName")
-                        .IsRequired()
+                    b.Property<string>("AddressLineOne")
                         .HasColumnType("text");
 
-                    b.Property<string>("ClosingTime")
+                    b.Property<string>("AddressLineTwo")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsEnabled")
-                        .HasColumnType("boolean");
+                    b.Property<int>("BuildingNumber")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("OpeningTime")
+                    b.Property<string>("City")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("text");
+
+                    b.Property<string>("County")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PostCode")
                         .HasColumnType("text");
 
                     b.HasKey("Key");
@@ -155,7 +194,7 @@ namespace AmlApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Key"));
 
-                    b.Property<bool>("IsEnabled")
+                    b.Property<bool>("Enabled")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Type")
@@ -248,11 +287,22 @@ namespace AmlApi.Migrations
                     b.ToTable("UserInventories");
                 });
 
-            modelBuilder.Entity("AmlApi.DataAccess.Entities.Inventory", b =>
+            modelBuilder.Entity("AmlApi.DataAccess.Entities.Branch", b =>
                 {
                     b.HasOne("AmlApi.DataAccess.Entities.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("AmlApi.DataAccess.Entities.Inventory", b =>
+                {
+                    b.HasOne("AmlApi.DataAccess.Entities.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchKey")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -262,7 +312,7 @@ namespace AmlApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Location");
+                    b.Navigation("Branch");
 
                     b.Navigation("MediaType");
                 });

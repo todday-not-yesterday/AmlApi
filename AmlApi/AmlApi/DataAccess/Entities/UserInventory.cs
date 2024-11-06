@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AmlApi.DataAccess.Entities;
 
+[ExcludeFromCodeCoverage]
 public class UserInventory
 {
     [Key] public int Key { get; set; }

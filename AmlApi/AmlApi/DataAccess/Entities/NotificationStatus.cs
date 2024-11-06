@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace AmlApi.DataAccess.Entities;
 
+[ExcludeFromCodeCoverage]
 public class NotificationStatus
 {
     [Key] public int Key { get; set; }

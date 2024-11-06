@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace AmlApi.DataAccess.Entities;
 
+[ExcludeFromCodeCoverage]
 public class Inventory
 {
     [Key] public int Key { get; set; }
@@ -12,11 +13,11 @@ public class Inventory
 
     public int MediaTypeKey { get; set; }
 
-    public int LocationKey { get; set; }
+    public int BranchKey { get; set; }
 
     public int StockLevel { get; set; }
     
     [ForeignKey(nameof(MediaTypeKey))] public MediaType MediaType { get; set; }
     
-    [ForeignKey(nameof(LocationKey))] public Location Location { get; set; }
+    [ForeignKey(nameof(BranchKey))] public Branch Branch { get; set; }
 }

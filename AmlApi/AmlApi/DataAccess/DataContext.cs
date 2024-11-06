@@ -14,7 +14,7 @@ public class DataContext : IDataContext
 
     public IAppDbContext Create()
     {
-        var contextOptionsBuilder = new DbContextOptionsBuilder();
+        var contextOptionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
         contextOptionsBuilder.UseNpgsql(this.configuration.GetConnectionString("AmlDb"));
         return new AppDbContext(contextOptionsBuilder.Options);
     }

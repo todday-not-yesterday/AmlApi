@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AmlApi.Migrations
 {
     /// <inheritdoc />
-    public partial class initialDbSetup : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,10 +18,13 @@ namespace AmlApi.Migrations
                 {
                     Key = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    BranchName = table.Column<string>(type: "text", nullable: false),
-                    IsEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    OpeningTime = table.Column<string>(type: "text", nullable: true),
-                    ClosingTime = table.Column<string>(type: "text", nullable: true)
+                    PostCode = table.Column<string>(type: "text", nullable: true),
+                    BuildingNumber = table.Column<int>(type: "integer", nullable: false),
+                    AddressLineOne = table.Column<string>(type: "text", nullable: true),
+                    AddressLineTwo = table.Column<string>(type: "text", nullable: true),
+                    City = table.Column<string>(type: "text", nullable: true),
+                    County = table.Column<string>(type: "text", nullable: true),
+                    Country = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,7 +65,7 @@ namespace AmlApi.Migrations
                     Key = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Type = table.Column<string>(type: "text", nullable: false),
-                    IsEnabled = table.Column<bool>(type: "boolean", nullable: false)
+                    Enabled = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -94,29 +97,24 @@ namespace AmlApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Inventories",
+                name: "Branch",
                 columns: table => new
                 {
                     Key = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    MediaTypeKey = table.Column<int>(type: "integer", nullable: false),
-                    LocationKey = table.Column<int>(type: "integer", nullable: false),
-                    StockLevel = table.Column<int>(type: "integer", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    OpeningTime = table.Column<string>(type: "text", nullable: true),
+                    ClosingTime = table.Column<string>(type: "text", nullable: true),
+                    LocationKey = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Inventories", x => x.Key);
+                    table.PrimaryKey("PK_Branch", x => x.Key);
                     table.ForeignKey(
-                        name: "FK_Inventories_Locations_LocationKey",
+                        name: "FK_Branch_Locations_LocationKey",
                         column: x => x.LocationKey,
                         principalTable: "Locations",
-                        principalColumn: "Key",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Inventories_MediaTypes_MediaTypeKey",
-                        column: x => x.MediaTypeKey,
-                        principalTable: "MediaTypes",
                         principalColumn: "Key",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -157,6 +155,34 @@ namespace AmlApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Inventories",
+                columns: table => new
+                {
+                    Key = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    MediaTypeKey = table.Column<int>(type: "integer", nullable: false),
+                    BranchKey = table.Column<int>(type: "integer", nullable: false),
+                    StockLevel = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inventories", x => x.Key);
+                    table.ForeignKey(
+                        name: "FK_Inventories_Branch_BranchKey",
+                        column: x => x.BranchKey,
+                        principalTable: "Branch",
+                        principalColumn: "Key",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Inventories_MediaTypes_MediaTypeKey",
+                        column: x => x.MediaTypeKey,
+                        principalTable: "MediaTypes",
+                        principalColumn: "Key",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserInventories",
                 columns: table => new
                 {
@@ -186,9 +212,14 @@ namespace AmlApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inventories_LocationKey",
-                table: "Inventories",
+                name: "IX_Branch_LocationKey",
+                table: "Branch",
                 column: "LocationKey");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inventories_BranchKey",
+                table: "Inventories",
+                column: "BranchKey");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Inventories_MediaTypeKey",
@@ -243,10 +274,13 @@ namespace AmlApi.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Locations");
+                name: "Branch");
 
             migrationBuilder.DropTable(
                 name: "MediaTypes");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
         }
     }
 }

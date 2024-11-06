@@ -1,27 +1,16 @@
+using AmlApi.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AmlApi.DataAccess;
+using Autofac;
 using AmlApi.IoC;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmlApi
 {
-	using System.IO;
-	using System.Reflection;
-	using Autofac;
-	using AmlApi.IoC;
-
 	public class Startup
 	{
 		public Startup(IConfiguration configuration)
@@ -35,6 +24,9 @@ namespace AmlApi
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
+			
+			services.AddDbContext<AppDbContext>(
+				options => options.UseNpgsql(this.Configuration.GetConnectionString("AmlDb")));
 			
 			services.AddSwaggerGen();
 			services.AddSwaggerGen(c =>
@@ -70,8 +62,6 @@ namespace AmlApi
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", this.GetType().Assembly.GetName().Name);
 				c.RoutePrefix = string.Empty;
 			});
-
-			//app.UseHttpsRedirection();
 
 			app.UseRouting();
 

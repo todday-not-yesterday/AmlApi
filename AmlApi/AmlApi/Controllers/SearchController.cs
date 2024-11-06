@@ -21,16 +21,16 @@ public class SearchController : Controller
         }
     }
     
-    [HttpPost("GetFilteredMedia/{filters}")]
-    public async Task<IActionResult> GetAllMedia(Filters filters)
-    {
-        try
-        {
-            return new OkObjectResult("sommet");
-        }
-        catch (Exception e)
-        {
-            return new BadRequestObjectResult(e.Message);
-        }
-    }
+    // [HttpPost("GetFilteredMedia/{filters}")]
+    // public async Task<IActionResult> GetAllMedia(Filters filters)
+    // {
+    //     try
+    //     {
+    //         return new OkObjectResult("sommet");
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return new BadRequestObjectResult(e.Message);
+    //     }
+    // }
 }

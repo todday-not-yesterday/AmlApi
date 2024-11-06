@@ -23,20 +23,6 @@ namespace AmlApi.Controllers
         [HttpGet("Status")]
         public IActionResult Status()
         {
-            // test DB works
-            var user = new User
-            {
-                FirstName = "Hamza",
-                LastName = "Soussi",
-                Address = "3",
-                PostCode = "S",
-                Email = ""
-            };
-            using (var context = this.dataContext.Create())
-            {
-                context.Users.Add(user);
-                context.SaveChangesAsync();
-            }
             return new OkObjectResult("Success");
         }
     }

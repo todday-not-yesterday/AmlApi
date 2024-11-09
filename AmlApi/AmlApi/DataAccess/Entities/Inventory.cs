@@ -17,6 +17,10 @@ public class Inventory
 
     public int StockLevel { get; set; }
     
+    public string Author { get; set; }
+    
+    public int? PublicationYear { get; set; }
+    
     [ForeignKey(nameof(MediaTypeKey))] public MediaType MediaType { get; set; }
     
     [ForeignKey(nameof(BranchKey))] public Branch Branch { get; set; }

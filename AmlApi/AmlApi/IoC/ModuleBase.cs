@@ -1,4 +1,7 @@
-﻿namespace AmlApi.IoC
+﻿using System.Reflection;
+using AutoMapper;
+
+namespace AmlApi.IoC
 {
     using System.Diagnostics.CodeAnalysis;
     using Autofac;
@@ -20,6 +23,14 @@
 
             builder.RegisterAssemblyTypes(typeof(Startup).Assembly)
                 .AsImplementedInterfaces();
+
+            builder.Register(c =>
+            {
+                return new MapperConfiguration(cfg =>
+                {
+                    cfg.AddMaps(Assembly.GetExecutingAssembly());
+                }).CreateMapper();
+            }).As<IMapper>().InstancePerLifetimeScope();
         }
 
         protected T GetSettings<T>()

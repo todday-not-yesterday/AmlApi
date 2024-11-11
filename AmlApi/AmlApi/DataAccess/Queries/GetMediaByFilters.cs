@@ -2,28 +2,29 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AmlApi.DataAccess.Entities;
+using AmlApi.Resources;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmlApi.DataAccess.Queries;
 
-public class GetAllMediaByPage : IGetAllMediaByPage
+public class GetMediaByFilters : IGetMediaByFilters
 {
     private readonly IDataContext dataContext;
 
-    public GetAllMediaByPage(IDataContext dataContext)
+    public GetMediaByFilters(IDataContext dataContext)
     {
         this.dataContext = dataContext;
     }
 
-    public async Task<List<Inventory>> Get(int pageNumber, int pageSize)
+    public async Task<List<Inventory>> Get(Filters filters)
     {
         using (var context = this.dataContext.Create())
         {
             return await context.Inventories
                 .Include(x=>x.MediaType)
                 .Include(x=>x.Branch)
-                .Skip(pageSize * pageNumber)
-                .Take(pageSize)
+                .Skip(filters.PageSize * filters.PageNumber)
+                .Take(filters.PageSize)
                 .ToListAsync();
         }
     }

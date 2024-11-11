@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using AmlApi.DataAccess.Queries;
+using AmlApi.Business;
+using AmlApi.Resources;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmlApi.Controllers;
@@ -8,19 +9,19 @@ namespace AmlApi.Controllers;
 [Route("[controller]")]
 public class SearchController : Controller
 {
-    private readonly IGetAllMediaByPage getAllMediaByPage;
+    private readonly IGetMappedMediaByFilters getMappedMediaByFilters;
 
-    public SearchController(IGetAllMediaByPage getAllMediaByPage)
+    public SearchController(IGetMappedMediaByFilters getMappedMediaByFilters)
     {
-        this.getAllMediaByPage = getAllMediaByPage;
+        this.getMappedMediaByFilters = getMappedMediaByFilters;
     }
 
-    [HttpPost("[action]/pageNumber/pageSize")]
-    public async Task<IActionResult> GetAllMedia(int pageNumber, int pageSize)
+    [HttpPost("[action]")]
+    public async Task<IActionResult> GetMedia([FromBody] Filters filters)
     {
         try
         {
-            return new OkObjectResult(await getAllMediaByPage.Get(pageNumber, pageSize));
+            return new OkObjectResult(await getMappedMediaByFilters.Get(filters));
         }
         catch (Exception e)
         {

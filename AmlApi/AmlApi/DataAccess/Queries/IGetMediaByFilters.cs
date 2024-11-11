@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AmlApi.DataAccess.Entities;
+using AmlApi.Resources;
 
 namespace AmlApi.DataAccess.Queries;
 
-public interface IGetAllMediaByPage
+public interface IGetMediaByFilters
 {
-    Task<List<Inventory>> Get(int pageNumber, int pageSize);
+    Task<List<Inventory>> Get(Filters filters);
 }

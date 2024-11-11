@@ -23,7 +23,7 @@ public class GetMediaByFilters : IGetMediaByFilters
             return await context.Inventories
                 .Include(x=>x.MediaType)
                 .Include(x=>x.Branch)
-                .Skip(filters.PageSize * filters.PageNumber)
+                .Skip(filters.PageSize * filters.PageNumber - filters.PageSize)
                 .Take(filters.PageSize)
                 .ToListAsync();
         }

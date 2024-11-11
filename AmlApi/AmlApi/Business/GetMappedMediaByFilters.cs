@@ -9,18 +9,28 @@ namespace AmlApi.Business;
 public class GetMappedMediaByFilters : IGetMappedMediaByFilters
 {
     private readonly IGetMediaByFilters getMediaByFilters;
+    private readonly IGetMediaCountByFilters getMediaCountByFilters;
     private readonly IMapper mapper;
 
-    public GetMappedMediaByFilters(IGetMediaByFilters getMediaByFilters, IMapper mapper)
+    public GetMappedMediaByFilters(IGetMediaByFilters getMediaByFilters,
+        IGetMediaCountByFilters getMediaCountByFilters,
+        IMapper mapper)
     {
         this.getMediaByFilters = getMediaByFilters;
+        this.getMediaCountByFilters = getMediaCountByFilters;
         this.mapper = mapper;
     }
 
-    public async Task<List<MediaResource>> Get(Filters filters)
+    public async Task<GetMediaResponse> Get(Filters filters)
     {
         var media = await getMediaByFilters.Get(filters);
 
-        return mapper.Map<List<MediaResource>>(media);
+        var mediaCount = await getMediaCountByFilters.Get(filters);
+
+        return new GetMediaResponse
+        {
+            MediaResources = mapper.Map<List<MediaResource>>(media),
+            MediaCount = mediaCount
+        };
     }
 }

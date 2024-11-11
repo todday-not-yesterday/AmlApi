@@ -6,5 +6,5 @@ namespace AmlApi.Business;
 
 public interface IGetMappedMediaByFilters
 {
-    Task<List<MediaResource>> Get(Filters filters);
+    Task<GetMediaResponse> Get(Filters filters);
 }

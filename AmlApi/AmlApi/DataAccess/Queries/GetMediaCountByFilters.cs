@@ -6,16 +6,16 @@ namespace AmlApi.DataAccess.Queries;
 
 public class GetMediaCountByFilters : IGetMediaCountByFilters
 {
-    private readonly IDataContext dataContext;
+    private readonly IDataContextFactory _dataContextFactory;
 
-    public GetMediaCountByFilters(IDataContext dataContext)
+    public GetMediaCountByFilters(IDataContextFactory dataContextFactory)
     {
-        this.dataContext = dataContext;
+        this._dataContextFactory = dataContextFactory;
     }
 
     public async Task<int> Get(Filters filters)
     {
-        using (var context = this.dataContext.Create())
+        using (var context = this._dataContextFactory.Create())
         {
             return await context.Inventories
                 .CountAsync();

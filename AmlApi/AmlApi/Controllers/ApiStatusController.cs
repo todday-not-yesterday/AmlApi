@@ -8,11 +8,11 @@ namespace AmlApi.Controllers
     [Route("[controller]")]
     public class ApiStatusController : Controller
     {
-        private readonly IDataContext dataContext;
+        private readonly IDataContextFactory _dataContextFactory;
 
-        public ApiStatusController(IDataContext dataContext)
+        public ApiStatusController(IDataContextFactory dataContextFactory)
         {
-            this.dataContext = dataContext;
+            this._dataContextFactory = dataContextFactory;
         }
 
         /// <summary>

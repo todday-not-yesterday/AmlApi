@@ -9,16 +9,16 @@ namespace AmlApi.DataAccess.Queries;
 
 public class GetMediaByFilters : IGetMediaByFilters
 {
-    private readonly IDataContext dataContext;
+    private readonly IDataContextFactory _dataContextFactory;
 
-    public GetMediaByFilters(IDataContext dataContext)
+    public GetMediaByFilters(IDataContextFactory dataContextFactory)
     {
-        this.dataContext = dataContext;
+        this._dataContextFactory = dataContextFactory;
     }
 
     public async Task<List<Inventory>> Get(Filters filters)
     {
-        using (var context = this.dataContext.Create())
+        using (var context = this._dataContextFactory.Create())
         {
             return await context.Inventories
                 .Include(x=>x.MediaType)

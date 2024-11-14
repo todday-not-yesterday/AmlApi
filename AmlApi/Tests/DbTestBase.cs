@@ -2,7 +2,7 @@ using AmlApi.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AmlApiTests;
+namespace Tests;
 
 public class DbTestBase<T> : TestBase<T> where T : class
 {

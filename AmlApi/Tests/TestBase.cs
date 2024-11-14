@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Moq.AutoMock;
 
-namespace AmlApiTests;
+namespace Tests;
 
 [ExcludeFromCodeCoverage]
 public abstract class TestBase<T> where T : class

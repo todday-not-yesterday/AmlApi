@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AmlApi.DataAccess.Entities;
 using AmlApi.Resources;
 
-namespace AmlApi.DataAccess.Queries;
+namespace AmlApi.DataAccess.Queries.Interfaces;
 
 public interface IGetMediaByFilters
 {

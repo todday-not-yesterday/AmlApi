@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AmlApi.Resources;
 using Microsoft.EntityFrameworkCore;
+using AmlApi.DataAccess.Queries.Interfaces;
 
 namespace AmlApi.DataAccess.Queries;
 

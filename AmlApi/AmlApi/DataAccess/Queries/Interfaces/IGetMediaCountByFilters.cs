@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AmlApi.Resources;
 
-namespace AmlApi.DataAccess.Queries;
+namespace AmlApi.DataAccess.Queries.Interfaces;
 
 public interface IGetMediaCountByFilters
 {

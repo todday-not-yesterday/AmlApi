@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AmlApi.DataAccess.Queries;
+using AmlApi.DataAccess.Queries.Interfaces;
 using AmlApi.Resources;
 using AutoMapper;
 

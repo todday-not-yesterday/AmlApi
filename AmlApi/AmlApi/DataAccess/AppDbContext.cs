@@ -1,8 +1,5 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AmlApi.DataAccess.Entities;
+﻿using AmlApi.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace AmlApi.DataAccess;
 
@@ -18,5 +15,4 @@ public class AppDbContext : DbContext, IAppDbContext
     public DbSet<NotificationType> NotificationTypes { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserInventory> UserInventories { get; set; }
-    
 }

@@ -16,6 +16,5 @@ public interface IAppDbContext : IDisposable
     DbSet<NotificationType> NotificationTypes { get; set; }
     DbSet<User> Users { get; set; }
     DbSet<UserInventory> UserInventories { get; set; }
-    
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
 }

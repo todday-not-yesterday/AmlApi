@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using AmlApi.DataAccess.Entities;
 using AmlApi.Resources;
+using AutoMapper;
 
 namespace AmlApi.Mapper;
-using AutoMapper;
 
 [ExcludeFromCodeCoverage]
 public class InventoryMediaProfile : Profile
@@ -17,5 +17,9 @@ public class InventoryMediaProfile : Profile
                 opt => opt.MapFrom(x => x.Branch.Name))
             .ForMember(destination => destination.Available, 
                 opt => opt.MapFrom(x => x.StockLevel > 0));
+
+        CreateMap<MediaType, MediaTypeResource>();
+
+        CreateMap<Branch, BranchResource>();
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AmlApi.DataAccess.Entities;
+using AmlApi.DataAccess.Enums;
 using AmlApi.DataAccess.Queries.Interfaces;
 using AmlApi.Resources;
 using AutoMapper;
@@ -23,7 +25,15 @@ public class GetMappedMediaByFilters : IGetMappedMediaByFilters
 
     public async Task<GetMediaResponse> Get(Filters filters)
     {
-        var media = await getMediaByFilters.Get(filters);
+        var media = new List<Inventory>();
+        if (filters.MediaEnquiryType == MediaEnquiryTypeEnum.Return)
+        {
+            // return media that the customer has
+        }
+        else
+        {
+            media = await getMediaByFilters.Get(filters);
+        }
 
         var mediaCount = await getMediaCountByFilters.Get(filters);
 

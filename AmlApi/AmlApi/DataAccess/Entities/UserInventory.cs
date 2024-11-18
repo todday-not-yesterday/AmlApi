@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AmlApi.DataAccess.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -18,7 +19,7 @@ public class UserInventory
     
     public int UserKey { get; set; }
     
-    public bool Returned { get; set; }
+    public MediaStatusEnum Status { get; set; }
     
     [ForeignKey(nameof(InventoryKey))] 
     public Inventory Inventory { get; set; }

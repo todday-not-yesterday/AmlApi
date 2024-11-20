@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AmlApi.DataAccess.Entities;
-using AmlApi.DataAccess.Enums;
+using AmlApi.Business.Getters.Interfaces;
 using AmlApi.DataAccess.Queries.Interfaces;
+using AmlApi.Factory.Interfaces;
 using AmlApi.Resources;
 using AutoMapper;
 
@@ -10,32 +10,26 @@ namespace AmlApi.Business;
 
 public class GetMappedMediaByFilters : IGetMappedMediaByFilters
 {
-    private readonly IGetMediaByFilters getMediaByFilters;
-    private readonly IGetMediaCountByFilters getMediaCountByFilters;
+    private readonly IFilteredMediaFactory filteredMediaFactory;
+    private readonly IMediaCountFactory mediaCountFactory;
     private readonly IMapper mapper;
 
-    public GetMappedMediaByFilters(IGetMediaByFilters getMediaByFilters,
-        IGetMediaCountByFilters getMediaCountByFilters,
+    public GetMappedMediaByFilters(IFilteredMediaFactory filteredMediaFactory,
+        IMediaCountFactory mediaCountFactory,
         IMapper mapper)
     {
-        this.getMediaByFilters = getMediaByFilters;
-        this.getMediaCountByFilters = getMediaCountByFilters;
+        this.filteredMediaFactory = filteredMediaFactory;
+        this.mediaCountFactory = mediaCountFactory;
         this.mapper = mapper;
     }
 
     public async Task<GetMediaResponse> Get(Filters filters)
     {
-        var media = new List<Inventory>();
-        if (filters.MediaEnquiryType == MediaEnquiryTypeEnum.Return)
-        {
-            // return media that the customer has
-        }
-        else
-        {
-            media = await getMediaByFilters.Get(filters);
-        }
-
-        var mediaCount = await getMediaCountByFilters.Get(filters);
+        var filter = await filteredMediaFactory.GetFilter(filters.MediaEnquiryType);
+        var media = await filter.Get(filters);
+        
+        var counter = await mediaCountFactory.GetCounter(filters.MediaEnquiryType);
+        var mediaCount = await counter.Get(filters);
 
         return new GetMediaResponse
         {

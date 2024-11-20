@@ -3,5 +3,6 @@
 public enum MediaEnquiryTypeEnum
 {
     Borrow = 0,
-    Return = 1
+    Return = 1,
+    ManageInventory = 2
 }

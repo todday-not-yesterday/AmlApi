@@ -1,16 +1,19 @@
 ﻿using System.Threading.Tasks;
 using AmlApi.Resources;
 using System.Linq;
+using AmlApi.DataAccess.Enums;
 using AmlApi.DataAccess.Queries.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmlApi.DataAccess.Queries;
 
-public class GetMediaCountByFilters : IGetMediaCountByFilters
+public class GetMediaCountForBorrow : IGetMediaCount
 {
+    public MediaEnquiryTypeEnum MediaEnquiryType => MediaEnquiryTypeEnum.Borrow;
+    
     private readonly IDataContextFactory dataContextFactory;
 
-    public GetMediaCountByFilters(IDataContextFactory dataContextFactory)
+    public GetMediaCountForBorrow(IDataContextFactory dataContextFactory)
     {
         this.dataContextFactory = dataContextFactory;
     }

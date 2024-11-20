@@ -2,24 +2,26 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AmlApi.DataAccess.Entities;
+using AmlApi.DataAccess.Enums;
+using AmlApi.DataAccess.Queries.Interfaces;
 using AmlApi.Resources;
 using Microsoft.EntityFrameworkCore;
-using AmlApi.DataAccess.Queries.Interfaces;
 
 namespace AmlApi.DataAccess.Queries;
 
-public class GetMediaByFilters : IGetMediaByFilters
+public class GetMediaForBorrow : IGetFilteredMedia
 {
+    public MediaEnquiryTypeEnum MediaEnquiryType => MediaEnquiryTypeEnum.Borrow;
+    
     private readonly IDataContextFactory dataContextFactory;
 
-    public GetMediaByFilters(IDataContextFactory dataContextFactory)
+    public GetMediaForBorrow(IDataContextFactory dataContextFactory)
     {
         this.dataContextFactory = dataContextFactory;
     }
 
     public async Task<List<Inventory>> Get(Filters filters)
     {
-        // class to get user level key if they are a manager then get everything otherwise exclude the ones that they have already borrowed 
         using (var context = dataContextFactory.Create())
         {
             return await context.Inventories

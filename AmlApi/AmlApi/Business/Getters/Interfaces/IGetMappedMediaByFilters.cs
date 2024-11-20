@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AmlApi.Resources;
 
-namespace AmlApi.Business;
+namespace AmlApi.Business.Getters.Interfaces;
 
 public interface IGetMappedMediaByFilters
 {

@@ -11,7 +11,7 @@ public class Branch
 
     [NotNull] public string Name { get; set; }
 
-    public bool Enabled { get; set; }
+    public bool IsEnabled { get; set; }
     
     public string OpeningTime { get; set; }
     

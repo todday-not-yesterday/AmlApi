@@ -23,13 +23,9 @@ public class GetMediaCountForBorrow : IGetMediaCount
         using (var context = dataContextFactory.Create())
         {
             return await context.Inventories
-                .Where(x => (filters.MediaTypes == null || !filters.MediaTypes.Any()) || filters.MediaTypes.Contains(x.MediaType.Key) 
-                    
-                    && ((filters.BranchNames == null || !filters.BranchNames.Any()) || filters.BranchNames.Contains(x.Branch.Name))
-                    
-                    && (!filters.MinimumPublicationYear.HasValue || 
-                        (x.PublicationYear < filters.MaximumPublicationYear && x.PublicationYear > filters.MinimumPublicationYear)
-                    ))
+                .Where(x => (filters.MediaTypes == null || !filters.MediaTypes.Any() || filters.MediaTypes.Contains(x.MediaType.Key))
+                            && ((filters.Branches == null || !filters.Branches.Any()) || filters.Branches.Contains(x.Branch.Key))
+                            && (filters.SearchItem == null || x.Name.ToLower().Contains(filters.SearchItem.ToLower())))
                 .CountAsync();
         }
     }

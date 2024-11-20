@@ -24,17 +24,9 @@ public class GetEnabledBranches : IGetEnabledBranches
     {
         using (var context = dataContextFactory.Create())
         {
-            //var branches = await context.Branches.Where(x => x.Enabled).ToListAsync();
+            var branches = await context.Branches.Where(x => x.IsEnabled).ToListAsync();
 
-            var branch = new List<Branch>
-            {
-                new Branch(){
-                Key = 1,
-                Name = "Adsetts Centre"
-            }
-                };
-            
-            return mapper.Map<List<BranchResource>>(branch);
+            return mapper.Map<List<BranchResource>>(branches);
         }
     }
 }

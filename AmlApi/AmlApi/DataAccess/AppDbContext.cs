@@ -15,4 +15,5 @@ public class AppDbContext : DbContext, IAppDbContext
     public DbSet<NotificationType> NotificationTypes { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserInventory> UserInventories { get; set; }
+    public DbSet<Branch> Branches { get; set; }
 }

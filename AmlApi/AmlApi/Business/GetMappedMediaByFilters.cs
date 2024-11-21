@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AmlApi.Business.Factory.Interfaces;
 using AmlApi.Business.Getters.Interfaces;
 using AmlApi.DataAccess.Queries.Interfaces;
-using AmlApi.Factory.Interfaces;
 using AmlApi.Resources;
 using AutoMapper;
 

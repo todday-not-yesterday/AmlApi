@@ -5,9 +5,8 @@ using AmlApi.DataAccess.Queries.Interfaces;
 namespace AmlApi.DataAccess.Entities;
 
 [ExcludeFromCodeCoverage]
-public class NotificationStatus : IHasKey
+public class MediaStatus : IHasKey
 {
     [Key] public int Key { get; set; }
-
-    [NotNull] public string Status { get; set; }
+    public string Status { get; set; }
 }

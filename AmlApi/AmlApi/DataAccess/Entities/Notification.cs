@@ -2,11 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using AmlApi.DataAccess.Queries.Interfaces;
 
 namespace AmlApi.DataAccess.Entities;
 
 [ExcludeFromCodeCoverage]
-public class Notification
+public class Notification : IHasKey
 {
     [Key] public int Key { get; set; }
 

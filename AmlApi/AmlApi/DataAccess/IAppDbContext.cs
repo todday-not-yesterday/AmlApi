@@ -18,4 +18,5 @@ public interface IAppDbContext : IDisposable
     DbSet<UserInventory> UserInventories { get; set; }
     DbSet<Branch> Branches { get; set; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
+    DbSet<T> Set<T>() where T : class;
 }

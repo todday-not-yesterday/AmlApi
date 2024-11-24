@@ -1,15 +1,13 @@
 using System;
 using System.Threading.Tasks;
-using AmlApi.Business;
 using AmlApi.Business.Getters.Interfaces;
 using AmlApi.DataAccess.Queries.Interfaces;
 using AmlApi.Resources;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace AmlApi.Controllers;
 
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class SearchController : Controller
 {
     private readonly IGetMappedMediaByFilters getMappedMediaByFilters;
@@ -25,7 +23,7 @@ public class SearchController : Controller
         this.getEnabledBranches = getEnabledBranches;
     }
 
-    [HttpPost("[action]")]
+    [HttpPost]
     public async Task<IActionResult> GetMedia([FromBody] Filters filters)
     {
         try
@@ -38,7 +36,7 @@ public class SearchController : Controller
         }
     }
     
-    [HttpGet("[action]")]
+    [HttpGet]
     public async Task<IActionResult> GetMediaTypes()
     {
         try
@@ -51,7 +49,7 @@ public class SearchController : Controller
         }
     }
     
-    [HttpGet("[action]")]
+    [HttpGet]
     public async Task<IActionResult> GetBranches()
     {
         try

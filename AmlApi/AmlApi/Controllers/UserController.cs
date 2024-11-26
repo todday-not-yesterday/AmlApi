@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using AmlApi.Business.Creators.Interfaces;
 using AmlApi.Business.Getters.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,13 @@ namespace AmlApi.Controllers;
 public class UserController : Controller
 {
     private readonly IGetLogin getLogin;
+    private readonly IUserCreator userCreator;
 
-    public UserController(IGetLogin getLogin)
+    public UserController(IGetLogin getLogin,
+                          IUserCreator userCreator)
     {
         this.getLogin = getLogin;
+        this.userCreator = userCreator;
     }
 
     [HttpGet]
@@ -29,4 +33,21 @@ public class UserController : Controller
             return BadRequest(e.Message);
         }
     }
+
+    [HttpPost]
+    public IActionResult Register([FromBody] DataAccess.Entities.User user)
+    {
+        try
+        {
+            userCreator.Create(user);
+
+            return Ok(new { message = "Registration successful" });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { error = e.Message });
+        }
+    }
+
+
 }

@@ -5,6 +5,7 @@ namespace AmlApi.Resources;
 [ExcludeFromCodeCoverage]
 public class MediaResource
 {
+    public int Key { get; set; }
     public string Name { get; set; }
     public string Author { get; set; }
     public int? PublicationYear { get; set; }

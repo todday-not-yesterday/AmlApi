@@ -14,4 +14,5 @@ public class Filters
     public List<int> MediaTypes { get; set; }
     public List<int> Branches { get; set; }
     public MediaEnquiryTypeEnum MediaEnquiryType { get; set; }
+    public int? PublicationYear { get; set; }
 }

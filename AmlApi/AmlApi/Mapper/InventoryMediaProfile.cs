@@ -11,11 +11,11 @@ public class InventoryMediaProfile : Profile
     public InventoryMediaProfile()
     {
         CreateMap<Inventory, MediaResource>()
-            .ForMember(destination => destination.MediaType, 
+            .ForMember(destination => destination.MediaType,
                 opt => opt.MapFrom(x => x.MediaType.Name))
-            .ForMember(destination => destination.BranchName, 
+            .ForMember(destination => destination.BranchName,
                 opt => opt.MapFrom(x => x.Branch.Name))
-            .ForMember(destination => destination.Available, 
+            .ForMember(destination => destination.Available,
                 opt => opt.MapFrom(x => x.StockLevel > 0));
 
         CreateMap<MediaType, MediaTypeResource>();

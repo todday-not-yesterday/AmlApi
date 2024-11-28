@@ -13,5 +13,4 @@ public class MediaResource
     public bool Available { get; set; }
     public string BranchName { get; set; }
     public int StockLevel { get; set; }
-    public int Key { get; set; }
 }

@@ -21,7 +21,8 @@ public class MediaBorrowProcessor : IMediaBorrowProcessor
 
     public MediaBorrowProcessor(IGetByKeyQuery getByKeyQuery, 
         IUserInventoryCreator userInventoryCreator, 
-        IStockLevelUpdater stockLevelUpdater, IDataContextFactory dataContextFactory)
+        IStockLevelUpdater stockLevelUpdater,
+        IDataContextFactory dataContextFactory)
     {
         this.getByKeyQuery = getByKeyQuery;
         this.userInventoryCreator = userInventoryCreator;

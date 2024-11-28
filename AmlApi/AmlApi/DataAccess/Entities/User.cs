@@ -31,7 +31,7 @@ public class User : IHasKey
     
     public bool Consent { get; set; }
     
-    public bool IsVerified { get; set; }
+    public bool? IsVerified { get; set; }
     
-    public int UserLevel { get; set; }
+    public int? UserLevel { get; set; }
 }

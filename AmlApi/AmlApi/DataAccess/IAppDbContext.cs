@@ -12,6 +12,7 @@ public interface IAppDbContext : IDisposable
     DbSet<Location> Locations { get; set; }
     DbSet<MediaType> MediaTypes { get; set; }
     DbSet<Notification> Notifications { get; set; }
+    DbSet<NotificationSendType> NotificationSendType { get; set; }
     DbSet<NotificationStatus> NotificationStatuses { get; set; }
     DbSet<NotificationType> NotificationTypes { get; set; }
     DbSet<User> Users { get; set; }

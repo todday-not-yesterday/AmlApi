@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AmlApi.Business.Processor.Interfaces;
 using AmlApi.DataAccess;
 using AmlApi.DataAccess.Entities;
 using AmlApi.DataAccess.Queries;
@@ -36,7 +37,7 @@ public class TransferDataProcessor : ITransferDataProcessor
         {
             var toBeTransferred = await this.getByKeyQuery.Get<Inventory>(transferData.Key);
 
-            var transferringTo = await this.getMediaByNameAndBranchQuery.Get(context, toBeTransferred.Name, transferData.Branch);
+            var transferringTo = await this.getMediaByNameAndBranchQuery.Execute(context, toBeTransferred.Name, transferData.Branch);
 
             if (transferringTo == null)
             {

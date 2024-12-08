@@ -20,10 +20,15 @@ public class Notification : IHasKey
     public DateTime AddedDate { get; set; }
     
     public DateTime SendAt { get; set; }
+    
+    public int SendTypeKey { get; set; }
 
     [ForeignKey(nameof(UserKey))] public User User { get; set; }
 
     [ForeignKey(nameof(NotificationTypeKey))] public NotificationType NotificationType { get; set; }
     
     [ForeignKey(nameof(NotificationStatusKey))] public NotificationStatus NotificationStatus { get; set; }
+    
+    [ForeignKey(nameof(SendTypeKey))] public NotificationSendType NotificationSendType { get; set; }
+
 }

@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using AmlApi.DataAccess.Entities;
 
-namespace AmlApi.DataAccess.Queries;
+namespace AmlApi.DataAccess.Queries.Interfaces;
 
 public interface IGetMediaByNameAndBranchQuery
 {
-    Task<Inventory> Get(IAppDbContext context, string name, int branchKey);
+    Task<Inventory> Execute(IAppDbContext context, string name, int branchKey);
 }

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using AmlApi.Business.Creators.Interfaces;
 using AmlApi.Business.Processor.Interfaces;
@@ -18,16 +19,19 @@ public class MediaBorrowProcessor : IMediaBorrowProcessor
     private readonly IUserInventoryCreator userInventoryCreator;
     private readonly IStockLevelUpdater stockLevelUpdater;
     private readonly IDataContextFactory dataContextFactory;
+    private readonly IInsertEntityCommand insertEntityCommand;
 
     public MediaBorrowProcessor(IGetByKeyQuery getByKeyQuery, 
         IUserInventoryCreator userInventoryCreator, 
         IStockLevelUpdater stockLevelUpdater,
-        IDataContextFactory dataContextFactory)
+        IDataContextFactory dataContextFactory,
+        IInsertEntityCommand insertEntityCommand)
     {
         this.getByKeyQuery = getByKeyQuery;
         this.userInventoryCreator = userInventoryCreator;
         this.stockLevelUpdater = stockLevelUpdater;
         this.dataContextFactory = dataContextFactory;
+        this.insertEntityCommand = insertEntityCommand;
     }
 
     public async Task<BorrowMediaResponse> Borrow(int mediaKey, int userKey)
@@ -48,6 +52,18 @@ public class MediaBorrowProcessor : IMediaBorrowProcessor
         userInventoryCreator.Create(mediaKey, userKey);
 
         stockLevelUpdater.Update(mediaKey, 1, false);
+
+        var borrowNotification = new Notification
+        {
+            UserKey = userKey,
+            NotificationTypeKey = mediaToBorrow.MediaTypeKey,
+            NotificationStatusKey = 1,
+            AddedDate = DateTime.Today,
+            SendAt = DateTime.Today.AddDays(9),
+            SendTypeKey = 1
+        };
+
+        await this.insertEntityCommand.Execute(borrowNotification);
 
         return new BorrowMediaResponse
         {

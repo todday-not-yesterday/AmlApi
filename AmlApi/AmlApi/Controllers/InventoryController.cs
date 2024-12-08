@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AmlApi.Business.Processor;
+using AmlApi.Business.Processor.Interfaces;
 using AmlApi.Resources;
 using Microsoft.AspNetCore.Mvc;
 

@@ -8,11 +8,13 @@ namespace AmlApi.Business.Senders;
 
 public class EmailSender : IEmailSender
 {
+    //https://stackoverflow.com/questions/32260/sending-email-in-net-through-gmail
+    
     public async Task SendEmail(string email)
     {
         var fromAddress = new MailAddress("advancedmedialibrary@gmail.com", "AML Admin");
         var toAddress = new MailAddress(email, "To Name");
-        const string fromPassword = "jfqk umob hetv yxcr";
+        const string password = "jfqk umob hetv yxcr";
         const string subject = "Overdue Media";
         const string body = "You haven't returned your media on time!";
         
@@ -23,7 +25,7 @@ public class EmailSender : IEmailSender
             EnableSsl = true,
             DeliveryMethod = SmtpDeliveryMethod.Network,
             UseDefaultCredentials = false,
-            Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            Credentials = new NetworkCredential(fromAddress.Address, password)
         };
 
         using (var message = new MailMessage(fromAddress, toAddress)

@@ -2,7 +2,7 @@
 using AmlApi.DataAccess.Queries.Interfaces;
 using Moq;
 
-namespace Tests.Controllers.Getters;
+namespace Tests.Getters;
 
 public class UserControllerTests : DbTestBase<GetLogin>
 {

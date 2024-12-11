@@ -13,17 +13,8 @@ public class GetLogin : IGetLogin
         this.checkLoginQuery = checkLoginQuery;
     }
 
-    public async Task<bool> Get(string Username, string password)
+    public async Task<int?> Get(string username, string password)
     {
-        var success = await checkLoginQuery.Get(Username, password);
-
-        if (success == 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return await checkLoginQuery.Get(username, password);
     }
 }

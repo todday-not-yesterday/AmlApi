@@ -4,6 +4,6 @@ namespace AmlApi.Business.Getters.Interfaces
 {
     public interface IGetLogin
     {
-        Task<bool> Get(string Username, string password);
+        Task<int?> Get(string username, string password);
     }
 }

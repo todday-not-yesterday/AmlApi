@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AmlApi.Business.Creators.Interfaces;
 using AmlApi.Business.Getters.Interfaces;
+using AmlApi.DataAccess.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmlApi.Controllers;
@@ -11,12 +12,15 @@ public class UserController : Controller
 {
     private readonly IGetLogin getLogin;
     private readonly IUserCreator userCreator;
+    private readonly IGetLevelKeyByUserKey getLevelKeyByUserKey;
 
     public UserController(IGetLogin getLogin,
-                          IUserCreator userCreator)
+                          IUserCreator userCreator,
+                          IGetLevelKeyByUserKey getLevelKeyByUserKey)
     {
         this.getLogin = getLogin;
         this.userCreator = userCreator;
+        this.getLevelKeyByUserKey = getLevelKeyByUserKey;
     }
 
     [HttpGet]
@@ -24,9 +28,7 @@ public class UserController : Controller
     {
         try
         {
-            var result = await getLogin.Get(username, password);
-
-            return Ok(result);
+            return new OkObjectResult(await getLogin.Get(username, password));
         }
         catch (Exception e)
         {
@@ -49,5 +51,9 @@ public class UserController : Controller
         }
     }
 
-
+    [HttpGet("{userKey}")]
+    public async Task<IActionResult> UserIsLibraryMember(int userKey)
+    {
+        return new OkObjectResult(await getLevelKeyByUserKey.Get(userKey) == (int)UserLevelsEnum.LibraryMember);
+    }
 }

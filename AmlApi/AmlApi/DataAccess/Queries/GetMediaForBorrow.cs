@@ -24,12 +24,16 @@ public class GetMediaForBorrow : IGetFilteredMedia
     {
         using (var context = dataContextFactory.Create())
         {
+            var userExistingMedia = context.UserInventories.Where(x => x.UserKey == filters.UserKey)
+                .Select(x => x.Inventory).Distinct();
+            
             return await context.Inventories
                 .Include(x=>x.MediaType)
                 .Include(x=>x.Branch)
                 .Where(x => (filters.MediaTypes == null || !filters.MediaTypes.Any() || filters.MediaTypes.Contains(x.MediaType.Key))
                     && ((filters.Branches == null || !filters.Branches.Any()) || filters.Branches.Contains(x.Branch.Key))
-                    && (filters.SearchItem == null || x.Name.ToLower().Contains(filters.SearchItem.ToLower())))
+                    && (filters.SearchItem == null || x.Name.ToLower().Contains(filters.SearchItem.ToLower()))
+                    && !userExistingMedia.Any(y=> y.Key == x.Key))
                 .Skip(filters.PageSize * filters.PageNumber - filters.PageSize)
                 .Take(filters.PageSize)
                 .ToListAsync();

@@ -22,10 +22,14 @@ public class GetMediaCountForBorrow : IGetMediaCount
     {
         using (var context = dataContextFactory.Create())
         {
+            var userExistingMedia = context.UserInventories.Where(x => x.UserKey == filters.UserKey)
+                .Select(x => x.Inventory).Distinct();
+
             return await context.Inventories
                 .Where(x => (filters.MediaTypes == null || !filters.MediaTypes.Any() || filters.MediaTypes.Contains(x.MediaType.Key))
                             && ((filters.Branches == null || !filters.Branches.Any()) || filters.Branches.Contains(x.Branch.Key))
-                            && (filters.SearchItem == null || x.Name.ToLower().Contains(filters.SearchItem.ToLower())))
+                            && (filters.SearchItem == null || x.Name.ToLower().Contains(filters.SearchItem.ToLower()))
+                            && !userExistingMedia.Any(y=> y.Key == x.Key))
                 .CountAsync();
         }
     }

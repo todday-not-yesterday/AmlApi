@@ -226,6 +226,30 @@ You should include as markdown file in your github repository and include the li
 }
 ```
 
+***
+**Endpoint**: GET /User/UserIsLibraryMember/{userKey}
+**Description**: Returns a boolean depending on the type of user
+
+**Headers**:
+
+- `Authorization`: Bearer [token] (required)
+- `Content-Type`: application/json
+
+**Query Parameters**:
+
+- `userKey` (type: int, required): References the user's key.
+
+***Response***:
+
+- Status: 200 Success
+- Body: 
+
+```json
+{
+  true
+}
+```
+
 # Inventory Controller
 ***
 
@@ -254,4 +278,35 @@ You should include as markdown file in your github repository and include the li
 
 ```json
 	"Transferred Media Successfully"
+```
+
+# Notifications Controller
+***
+**Endpoint**: POST /Notifications/GetNotificationsForUser/{userKey}
+**Description**: returns a list of notifications for a specified user
+
+**Headers**:
+
+- `Authorization`: Bearer [token] (required)
+- `Content-Type`: application/json
+
+**Query Parameters**:
+
+- `userKey` (type: int, required): References the user's key.
+
+***Response***:
+
+- Status: 200 Success
+- Body: 
+
+```json
+{
+  "key": 34,
+  "userKey": 4,
+  "notificationType": "Due Media",
+  "notificationStatus": "Queued",
+  "addedDate": "2024-12-12T00:00:00+00:00",
+  "sendAt": "2024-12-21T00:00:00+00:00",
+  "notificationSendType": "Email"
+}
 ```

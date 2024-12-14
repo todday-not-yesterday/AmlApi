@@ -51,7 +51,7 @@ public class GetMediaForManageInventory : IGetFilteredMedia
                 return await context.Inventories
                     .Include(x=> x.MediaType)
                     .Include(x=> x.Branch)
-                    .Where(x => filters.SearchItem.Contains(x.Name))
+                    .Where(x => x.Name.ToLower().Contains(filters.SearchItem.ToLower()))
                     .Skip(filters.PageSize * filters.PageNumber - filters.PageSize)
                     .Take(filters.PageSize)
                     .ToListAsync();

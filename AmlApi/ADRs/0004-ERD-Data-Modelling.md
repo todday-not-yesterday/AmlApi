@@ -2,7 +2,7 @@
 
 ## Context and Problem Statement  
 
-Having this diagram would create more discussions about the solution in the team as well as having a structure/clear plan to implement from highlighting all different relationships. 
+The advanced media library requires a complex data structure, that provides the ability to meet the requirements given.
 
 ## Considered Options  
 
@@ -10,20 +10,28 @@ Having this diagram would create more discussions about the solution in the team
 
 ## Decision Outcome  
 
-* ER Diagram, because it would be clear to follow and would work well with our decision since we are using PostgreSQL as mentioned in 0001-PostgreSQL.  
+* ER Diagram
 
 ## Consequences  
 
-* A diagram that resolves all of the entities and their relationships would be followed  
+* A diagram that create clear building blocks for developers, that ensures requirements are met.  
 
 ## Pros 
 
-* It is easy to set up and make. 
+* Free tools such as: draw io and lucidchart
 
-* Can save a lot of time down the line. 
+* It is easy to set up and make 
 
-* Normalization can be done early on to sanitize the data, ensuring we don't end up with messy data that is either redundant or hard to follow. 
+* Helps to ensure budget and time frames are met
+
+* Normalisation can be done early on to sanitise the data, ensuring we don't end up with messy data that is either redundant or hard to follow 
+
+* Works well with our decision since we are using PostgreSQL as mentioned in 0001-PostgreSQL
 
 ## Cons 
 
-* It can cause problems during implementation, as a team we need to pay attention with what we are implementing during development, and not rely solely on this diagram. 
+* The diagram would need to be fully done before the start of development
+
+* Changes to diagram can be extremely costly
+
+* It can cause problems during implementation, as a team we need to pay attention with what we are implementing during development, and not rely solely on this diagram

@@ -2,13 +2,13 @@
 
 ## Context and Problem Statement    
 
-AML requirements would need a database that is scalable, maintainable, and secure.  
+The advanced media library require data storage that is scalable, maintainable, and secure. 
 
-## Considered Options  
+## Considered Options
 
 * SQL Server 
 
-* MySQL  
+* MySQL
 
 * PostgreSQL  
 
@@ -18,7 +18,7 @@ AML requirements would need a database that is scalable, maintainable, and secur
 
 ## Consequences    
 
-* All of the listed options are mature and would work well with our solution, PostgreSQL has a great community support and would integrate well with our other decisions. 
+* PostgreSQL is a mature database solution that has long term support, a great documentation, and would integrate well with our other decisions. 
 
 ## Pros 
 
@@ -30,8 +30,10 @@ AML requirements would need a database that is scalable, maintainable, and secur
 
 * Allow the flexibility of having JSON data if needed 
 
-* Is a relational database which is better suited for our implementation 
+* Is a relational database which is well suited for our implementation 
 
 ## Cons 
 
-* The setup of hosting our database and having it in our API to work with entity framework can be challenging. 
+* Hosting a scalable database is expensive
+
+* The initial setup through entity framework can be quite complex.

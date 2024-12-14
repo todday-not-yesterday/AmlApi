@@ -2,36 +2,40 @@
 
 ## Context and Problem Statement     
 
-The AML system is a big system that is actively looking into expanding to gather more customers across the country, therefore an architecture that allows for seamless scalability, clear to follow, and proven to be working in the real world is needed. Furthermore, we would need to pick an architecture that works well in tackling our main non-functional requirements. 
+The Advanced media library are looking to further expand an ever growing customer base to factilitate nation wide access, therefore we have been tasked with creating an architecture design that allows for seamless scalability, intuitive user interface, and implements existing architectures that have proven real world success. Furthermore, we would need to consider non-functional requirements as part of our solution. 
 
 ## Considered Options   
 
-* Three tier architecture   
+* Service oriented architecture
 
-* Two tier architecture   
+* Three-tier architecture   
+
+* Two-tier architecture   
 
 * Microservice architecture   
 
 ## Decision Outcome   
 
-* Three tier architecture with Microservices 
+* a combination of Three-tier and Microservice architecture  
 
 ## Consequences     
 
-* This architecture will increase the complexity of our system, this would be fine for our case as it would offer flexibility and scalability. 
+* Through the combination of three-tier and microservice architecture, the overall complexity will be increased. However, this is okay as the benifits of flexibility, maintainability, and scalability outweigh the increased complexity.
 
 ## Pros
 
-* AML requires scalability, with this style each tier can scale on its own as required.   
+* Scalability: with this architecture each tier can scale on its own as required.   
 
 * Because this project will be team based, it would allow us to work in different components at the same time without conflicting with each other.   
 
-* It offers improved security as we can implement further security measures in the business layer, and the presentation tier can’t connect straight away to the data tier, providing less power for users with bad intentions.   
+* It offers exceptional security as there is no direct link between the presentation and data tiers.
 
-* This architecture makes the system loosely coupled meaning that components can be reusable with each other, for example, when creating a new UI, some of the databases/APIs can be used again. 
+* This architecture allows for components to be loosely coupled, giving us the advantage of reusing components. For example, the reuse of UI components and API endpoints. 
 
-* The separation of layers is also great to tackle each of our Non-functional requirements in the correct places. 
+* This archeticture gives us the capability of ensuring non-functional requirments are met through out the solution.
 
 ## Cons  
 
-* Separating the concerns into different places can lead to performance issues. Ensuring good connections from each place is needed. 
+* Due to the three-tier architecture having different layers, performance can be impacted negatively.
+
+* Three tier is typically more expensive as there are more layers to host and maintain. 
